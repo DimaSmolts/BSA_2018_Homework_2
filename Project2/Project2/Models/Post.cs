@@ -7,12 +7,12 @@ namespace Project2.Models
 {
     public class Post
     {
-		public int id { get; set; }
-		public DateTime createdAt { get; set; }
-		public string title { get; set; }
-		public string body { get; set; }
-		public int userId { get; set; }
-		public int likes { get; set; }
+		public int Id { get; set; }
+		public DateTime CreatedAt { get; set; }
+		public string Title { get; set; }
+		public string Body { get; set; }
+		public int UserId { get; set; }
+		public int Likes { get; set; }
 		public List<Comment> CommentList = new List<Comment>();
 	}
 }

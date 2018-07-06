@@ -7,10 +7,10 @@ namespace Project2.Models
 {
     public class Todo
     {
-		public int id { get; set; }
-		public DateTime createdAt { get; set; }
-		public string name { get; set; }
-		public bool isComplete { get; set; }
-		public int userId { get; set; }
+		public int Id { get; set; }
+		public DateTime CreatedAt { get; set; }
+		public string Name { get; set; }
+		public bool IsComplete { get; set; }
+		public int UserId { get; set; }
 	}
 }

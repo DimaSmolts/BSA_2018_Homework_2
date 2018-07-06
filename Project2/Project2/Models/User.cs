@@ -7,12 +7,12 @@ namespace Project2.Models
 {
     public class User
     {
-		public int id { get; set; }
-		public DateTime createdAt { get; set; }
-		public string name { get; set; }
-		public string avatar { get; set; }
+		public int Id { get; set; }
+		public DateTime CreatedAt { get; set; }
+		public string Name { get; set; }
+		public string Avatar { get; set; }
 		public List<Post> PostList = new List<Post>();
 		public List<Todo> TodoList = new List<Todo>();
-		public Address address { get; set; }
+		public Address Address { get; set; }
 	}
 }

@@ -7,11 +7,11 @@ namespace Project2.Models
 {
     public class Address
     {
-		public int id { get; set; }
-		public string country { get; set; }
-		public string city { get; set; }
-		public string street { get; set; }
-		public string zip { get; set; }
-		public int userId { get; set; }
+		public int Id { get; set; }
+		public string Country { get; set; }
+		public string City { get; set; }
+		public string Street { get; set; }
+		public string Zip { get; set; }
+		public int UserId { get; set; }
 	}
 }
