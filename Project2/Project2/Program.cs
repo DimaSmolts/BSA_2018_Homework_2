@@ -12,9 +12,12 @@ namespace Project2
 {
     public class Program
     {
+		public static bool requestSuccess;
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+			MyDB.SendRequest();
+			BuildWebHost(args).Run();
+
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
