@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+}
+
+@if ((int)ViewData["UserId"] > 0 && (int)ViewData["UserId"] <= MyDB.Users.Count)
+{
+    User user = MyDB.Users[(int)ViewData["UserId"] - 1];
+
+    <h1>User page</h1>
+    <div>@user.Id</div>
+    <div>@user.Name</div>
+    <div>@user.CreatedAt</div>
+    <div>@user.Address.Country</div>
+    <img src="@user.Avatar" alt="user.Name" />
+
+    @if (user.PostList.Count != 0)
+    {
+        <h3>Posts:</h3>
+        @foreach (Post p in user.PostList)
+        {
+            <h4>----@p.Title</h4>
+            <div>----@p.CreatedAt</div>
+            <div>----@p.Body</div>
+            <div>----@p.Likes</div>
+        }
+    }
+    else
+    {
+        <h3>User has no posts</h3>
+    }
+    <br />
+    @if (user.TodoList.Count != 0)
+    {
+        <h6>Todos:</h6>
+        @foreach (Todo t in user.TodoList)
+        {
+            <h4>----@t.Name</h4>
+            <div>----@t.CreatedAt</div>
+            <div>----@t.IsComplete</div>
+        }
+    }
+    else
+    {
+        <h3>User has no todos</h3>
+    }
+}
+else
+{
+    <h1> Bad ID </h1>
+}
