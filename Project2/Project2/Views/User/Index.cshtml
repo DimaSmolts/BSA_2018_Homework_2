@@ -1,22 +1,22 @@
-﻿
+﻿@model User
+
 @{
     ViewData["Title"] = "Profile";
 }
 
-@if ((int)ViewData["UserId"] > 0 && (int)ViewData["UserId"] <= MyDB.Users.Count)
-{    
-    User user = MyDB.Users.First(u => u.Id.Equals((int)ViewData["UserId"]));
+@if (Model != null)
+{ 
     <h1>User page</h1>
-    <div>@user.Id</div>
-    <div>@user.Name</div>
-    <div>@user.CreatedAt</div>
-    <div>@user.Address.Country</div>
-    <img src="@user.Avatar" alt="user.Name" />
+    <div>@Model.Id</div>
+    <div>@Model.Name</div>
+    <div>@Model.CreatedAt</div>
+    <div>@Model.Address.Country</div>
+    <img src="@Model.Avatar" alt="user.Name" />
 
-    @if (user.PostList.Count != 0)
+    @if (Model.PostList.Count != 0)
     {
         <h3>Posts:</h3>
-        @foreach (Post p in user.PostList)
+        @foreach (Post p in Model.PostList)
         {
             <h4>---<a asp-controller="post" asp-action="index" asp-route-Id="@p.Id"> @p.Title </a></h4>
             <div>----@p.CreatedAt</div>
@@ -29,10 +29,10 @@
         <h3>User has no posts</h3>
     }
     <br />
-    @if (user.TodoList.Count != 0)
+    @if (Model.TodoList.Count != 0)
     {
         <h3>Todos:</h3>
-        @foreach (Todo t in user.TodoList)
+        @foreach (Todo t in Model.TodoList)
         {
             <h4>----<a asp-controller="todo" asp-action="index" asp-route-Id="@t.Id">@t.Name</a> </h4>
             <div>----@t.CreatedAt</div>
@@ -46,5 +46,5 @@
 }
 else
 {
-    <h1> Bad ID </h1>
+    <h1>Error</h1>
 }

@@ -10,8 +10,12 @@ namespace Project2.Controllers
     {
         public IActionResult Index(int id)
         {
-			ViewData["UserId"] = id;
-            return View();
+			Models.User user = null;
+
+			if (id > 0 && id <= MyDB.Users.Count)			
+				user = MyDB.Users.First(u => u.Id.Equals(id));
+			
+            return View(user);
         }
     }
 }

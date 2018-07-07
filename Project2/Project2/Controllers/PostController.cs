@@ -10,8 +10,24 @@ namespace Project2.Controllers
     {
         public IActionResult Index(int id)
         {
-			ViewData["PostId"] = id;
-			return View();
+			Models.Post post = null;
+			if (id > 0)
+			{				
+				var BigList = from u in MyDB.Users
+							  where u.PostList.Count != 0
+							  select u.PostList;
+
+				List<Models.Post> temp = new List<Models.Post>();
+
+				foreach (List<Models.Post> lp in BigList.ToList())
+					temp.AddRange(lp);						
+
+				if (temp.Count >= id)				
+					post = (from p in temp
+							select p).First(p => p.Id.Equals(id));
+							
+			}
+			return View(post);
         }
     }
 }

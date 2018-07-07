@@ -10,8 +10,24 @@ namespace Project2.Controllers
     {
         public IActionResult Index(int id)
         {
-			ViewData["TodoId"] = id;
-			return View();
+			Models.Todo todo = null;
+			if (id > 0)
+			{
+				var BigList = from u in MyDB.Users
+							  where u.TodoList.Count != 0
+							  select u.TodoList;
+
+				List<Models.Todo> temp = new List<Models.Todo>();
+
+				foreach (List<Models.Todo> lp in BigList.ToList())
+					temp.AddRange(lp);
+
+				if (temp.Count >= id)				
+					todo = (from t in temp
+							select t).First(t => t.Id.Equals(id));
+				
+			}
+			return View(todo);
         }
     }
 }

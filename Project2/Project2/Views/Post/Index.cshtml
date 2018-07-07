@@ -1,37 +1,20 @@
-﻿
+﻿@model Post
+
 @{
     ViewData["Title"] = "Post";
 }
 
-@{
-     var BigList = from u in MyDB.Users
-                  where u.PostList.Count != 0
-                  select u.PostList;
-    List<Post> temp = new List<Post>();
-    foreach (List<Post> lp in BigList.ToList())
-    {
-        temp.AddRange(lp);
-    }
-    Post post = new Post();
-
-    if (temp.Count >= (int)ViewData["PostId"] && (int)ViewData["PostId"] > 0)
-    {
-        post = (from p in temp
-           select p).First(p => p.Id.Equals((int)ViewData["PostId"]));
-    }
-}
-
-@if ((int)ViewData["PostId"] > 0 && (int)ViewData["PostId"] <= temp.Count)
+@if ( Model != null)
 {
-    <img src="@MyDB.Users.First(user => user.Id == post.UserId).Avatar" />
-    <h4>Title @post.Title</h4>
-    <div>@post.CreatedAt</div>
-    <div>Body: @post.Body</div>
-    <div>Likes: @post.Likes</div>
-    if(post.CommentList.Count != 0)
+    <img src="@MyDB.Users.First(user => user.Id == Model.UserId).Avatar" />
+    <h4>Title @Model.Title</h4>
+    <div>@Model.CreatedAt</div>
+    <div>Body: @Model.Body</div>
+    <div>Likes: @Model.Likes</div>
+    if(Model.CommentList.Count != 0)
     {
         <h3>Comments</h3>
-        foreach(Comment c in post.CommentList)
+        foreach(Comment c in Model.CommentList)
         {
             <div>-- @c.Body</div>
         }
@@ -40,5 +23,5 @@
 }
 else
 {
-    <h1>Bad ID</h1>
+    <h1>Error</h1>
 }

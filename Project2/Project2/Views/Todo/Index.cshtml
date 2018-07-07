@@ -1,34 +1,17 @@
-﻿
+﻿@model Todo
+
 @{
     ViewData["Title"] = "Todo";
 }
 
-@{
-    var BigList = from u in MyDB.Users
-                  where u.TodoList.Count != 0
-                  select u.TodoList;
-    List<Todo> todos = new List<Todo>();
-    foreach (List<Todo> lp in BigList.ToList())
-    {
-        todos.AddRange(lp);
-    }
-    Todo todo = new Todo();
-
-    if (todos.Count >= (int)ViewData["TodoId"] && (int)ViewData["TodoId"] > 0)
-    {
-        todo = (from t in todos
-                select t).First(t => t.Id.Equals((int)ViewData["TodoId"]));
-    }
-}
-
-@if ((int)ViewData["TodoId"] > 0 && (int)ViewData["TodoId"] <= todos.Count)
+@if (Model != null)
 {
-    <img src="@MyDB.Users.First(user => user.Id == todo.UserId).Avatar" />
-    <div>Name: @todo.Name</div>
-    <div>@todo.CreatedAt</div>
-    <div>Completed: @todo.IsComplete</div>
+    <img src="@MyDB.Users.First(user => user.Id == Model.UserId).Avatar" />
+    <div>Name: @Model.Name</div>
+    <div>@Model.CreatedAt</div>
+    <div>Completed: @Model.IsComplete</div>
 }
 else
 {
-    <h4>Bad Id</h4>
+    <h1>Error</h1>
 }
