@@ -4,9 +4,8 @@
 }
 
 @if ((int)ViewData["UserId"] > 0 && (int)ViewData["UserId"] <= MyDB.Users.Count)
-{
-    User user = MyDB.Users[(int)ViewData["UserId"] - 1];
-
+{    
+    User user = MyDB.Users.First(u => u.Id.Equals((int)ViewData["UserId"]));
     <h1>User page</h1>
     <div>@user.Id</div>
     <div>@user.Name</div>
@@ -19,7 +18,7 @@
         <h3>Posts:</h3>
         @foreach (Post p in user.PostList)
         {
-            <h4>----@p.Title</h4>
+            <h4>---<a asp-controller="post" asp-action="Index" asp-route-Id="@p.Id"> @p.Title </a></h4>
             <div>----@p.CreatedAt</div>
             <div>----@p.Body</div>
             <div>----@p.Likes</div>
@@ -32,7 +31,7 @@
     <br />
     @if (user.TodoList.Count != 0)
     {
-        <h6>Todos:</h6>
+        <h3>Todos:</h3>
         @foreach (Todo t in user.TodoList)
         {
             <h4>----@t.Name</h4>
