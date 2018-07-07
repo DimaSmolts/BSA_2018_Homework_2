@@ -18,7 +18,7 @@
         <h3>Posts:</h3>
         @foreach (Post p in user.PostList)
         {
-            <h4>---<a asp-controller="post" asp-action="Index" asp-route-Id="@p.Id"> @p.Title </a></h4>
+            <h4>---<a asp-controller="post" asp-action="index" asp-route-Id="@p.Id"> @p.Title </a></h4>
             <div>----@p.CreatedAt</div>
             <div>----@p.Body</div>
             <div>----@p.Likes</div>
@@ -34,7 +34,7 @@
         <h3>Todos:</h3>
         @foreach (Todo t in user.TodoList)
         {
-            <h4>----@t.Name</h4>
+            <h4>----<a asp-controller="todo" asp-action="index" asp-route-Id="@t.Id">@t.Name</a> </h4>
             <div>----@t.CreatedAt</div>
             <div>----@t.IsComplete</div>
         }
