@@ -4,21 +4,48 @@
     ViewData["Title"] = "Query4";
 }
 
-<h2>Query4</h2>
-<h4>Получить список пользователей по алфавиту (по возрастанию) с отсортированными todo items по длине name (по убыванию)</h4>
-
+<div class="container">
+    <h1>Query4</h1>
+    <h4>Получить список пользователей по алфавиту (по возрастанию) с отсортированными todo items по длине name (по убыванию)</h4>
+    <h6>// О боже як це жахливо виглядає</h6>
+</div>
+<hr />
 
 @if (Model != null)
-{    
-    <table>
-        <tr>
-            <td>Name</td>
-        </tr>
-        @foreach (User u in Model)
-        {
-            <tr>
-                <td><a asp-controller="User" asp-action="Index" asp-route-Id="@u.Id"> @u.Name </a></td>                
-            </tr>
-        }
-    </table>
-}
+{  
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+           <ul class="list-group">
+               @foreach(User u in Model)
+               {
+                    <li class="list-group-item">
+                        <a asp-controller="User" asp-action="Index" asp-route-Id="@u.Id">
+                             @u.Name
+                        </a>
+                    </li>
+                    @if(u.TodoList.Count != 0)
+                    {
+                      <div class="container">
+                          <div class="row">
+                              <div class="col-md-6 col-md-offset-1">
+                                  <ul class="list-group">
+                                      @foreach (Todo t in u.TodoList.OrderByDescending(todo => todo.Name.Length))
+                                      {
+                                          <li class="list-group-item">
+                                              @t.Name
+                                          </li>
+                                      }
+                                   </ul>
+                              </div>
+                          </div>
+                        </div>
+                    }
+                    <br />
+                }
+           </ul>
+        </div>
+    </div>
+</div>
+
+ }

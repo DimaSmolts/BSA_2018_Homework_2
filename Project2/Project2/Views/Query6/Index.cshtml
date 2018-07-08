@@ -4,47 +4,50 @@
     ViewData["Title"] = "Query6";
 }
 
-<h2>Query6</h2>
-<h4>
-    Получить следующую структуру (передать Id поста в параметры)
-    --Пост
-    --Самый длинный коммент поста
-    --Самый залайканный коммент поста
-    --Количество комментов под постом где или 0 лайков или длина текста < 80
-</h4>
+<div class="container">
+    <h1>Query6</h1>
+    <h4>Получить структуру PostInfo</h4>
+</div>
+<hr />
 
 @if (Model != null)
 {
     if (Model.Post != null)
     {
-        <div><a asp-controller="Query6" asp-action="Index">Back</a></div>
-        <table>
-            <tr>
-                <td>Post</td>
-                <td>
-                    <a asp-controller="Post" asp-action="Index" asp-route-Id="@Model.Post.Id">
-                        @Model.Post.Title
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>Longes Comment</td>
-                <td>@(Model.LongComment == null ? " " : Model.LongComment.Body)</td>
-            </tr>
-            <tr>
-                <td>Liked Comment</td>
-                <td>@(Model.LikedComment == null ? " " : Model.LikedComment.Body)</td>
-            </tr>
-            <tr>
-                <td>Comment Amount</td>
-                <td>@(Model.SpecialComment)</td>
-            </tr>
-        </table>
+        <div><a asp-controller="Query6" asp-action="Index">← Back</a></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Post</th>
+                            <td>
+                                <a asp-controller="Post" asp-action="Index" asp-route-Id="@Model.Post.Id">
+                                    @Model.Post.Title
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Longest Comment</th>
+                            <td>@(Model.LongComment == null ? " " : Model.LongComment.Body)</td>
+                        </tr>
+                        <tr>
+                            <th>Liked Comment</th>
+                            <td>@(Model.LikedComment == null ? " " : Model.LikedComment.Body)</td>
+                        </tr>
+                        <tr>
+                            <th>Comment Amount ( < 80)</th>
+                            <td>@(Model.SpecialComment)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     }
     else
     {
-        <div>no data</div>
-        <div><a asp-controller="Query6" asp-action="Index">Back</a></div>
+        <div><a asp-controller="Query6" asp-action="Index">← Back</a></div>
+        <h1 style="text-align:center">no data</h1>
     }
 
 }

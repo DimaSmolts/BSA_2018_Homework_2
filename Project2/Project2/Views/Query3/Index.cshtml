@@ -4,32 +4,45 @@
     ViewData["Title"] = "Query3";
 }
 
-<h2>Query3</h2>
-<h4>Получить список (id, name) из списка todos которые выполнены для конкретного пользователя (по айди)</h4>
+<div class="container">
+    <h1>Query3</h1>
+    <h4>Получить список (id, name) из списка todos которые выполнены для конкретного пользователя (по айди)</h4>
+</div>
+<hr />
 
 @if (Model != null)
 {
     if (Model.Count != 0)
     {
-        <div><a asp-controller="query3" asp-action="index">Back</a></div>
-        <table>
-            <tr>
-                <td>Id</td>
-                <td>Todo</td>
-            </tr>
-            @foreach (Todo t in Model)
-            {
-                <tr>
-                    <td>@t.Id</td>
-                    <td><a asp-controller="todo" asp-action="index" asp-route-Id="@t.Id"> @t.Name </a></td>
-                </tr>
-            }
-        </table>
+        <div><a asp-controller="query3" asp-action="index">← Back</a></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Todo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Todo t in Model)
+                            {
+                                <tr>
+                                    <td>@t.Id</td>
+                                    <td><a asp-controller="todo" asp-action="index" asp-route-Id="@t.Id"> @t.Name </a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     }
     else
     {
-        <div>no data</div>
-        <div><a asp-controller="query3" asp-action="index">Back</a></div>
+        <div><a asp-controller="Query3" asp-action="Index">← Back</a></div>
+        <h1 style="text-align:center">no data</h1>
     }
 }
 else
