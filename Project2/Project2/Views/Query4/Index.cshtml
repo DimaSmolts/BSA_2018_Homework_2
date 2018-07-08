@@ -16,10 +16,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-           <ul class="list-group">
+           <ul >
                @foreach(User u in Model)
                {
-                    <li class="list-group-item">
+                    <li >
                         <a asp-controller="User" asp-action="Index" asp-route-Id="@u.Id">
                              @u.Name
                         </a>
@@ -28,19 +28,22 @@
                     {
                       <div class="container">
                           <div class="row">
-                              <div class="col-md-6 col-md-offset-1">
-                                  <ul class="list-group">
+                              <div class="col-md-6 col-md-offset-0">
+                                  <ul >
                                       @foreach (Todo t in u.TodoList.OrderByDescending(todo => todo.Name.Length))
                                       {
-                                          <li class="list-group-item">
-                                              @t.Name
+                                          <li >
+                                              @t.Name @(t.IsComplete? "✔️" : "✖️")
                                           </li>
                                       }
                                    </ul>
                               </div>
                           </div>
                         </div>
-                    }
+                    }else
+                    {
+                        <div>no todos</div>
+                     }
                     <br />
                 }
            </ul>
