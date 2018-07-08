@@ -1,0 +1,24 @@
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "Query4";
+}
+
+<h2>Query4</h2>
+<h4>Получить список пользователей по алфавиту (по возрастанию) с отсортированными todo items по длине name (по убыванию)</h4>
+
+
+@if (Model != null)
+{    
+    <table>
+        <tr>
+            <td>Name</td>
+        </tr>
+        @foreach (User u in Model)
+        {
+            <tr>
+                <td><a asp-controller="User" asp-action="Index" asp-route-Id="@u.Id"> @u.Name </a></td>                
+            </tr>
+        }
+    </table>
+}

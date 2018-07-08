@@ -1,0 +1,35 @@
+﻿@model List<Post>
+
+@{
+    ViewData["Title"] = "SpecialQuery";
+}
+
+<h2>SpecialQuery</h2>
+<h4>
+    задача на креативность: создать страницу, где будут отображены все исходные данные в красивом виде, т.е. Пользователи с их постами и комментариями под ними, и тд.
+</h4>
+
+@if (Model != null)
+{
+    foreach (Post p in Model)
+    {
+        <br />
+        <h4>NewPost:</h4>
+        <img src="@MyDB.Users.First(user => user.Id == p.UserId).Avatar" />
+        <h4><a asp-controller="Post" asp-action="Index" asp-route-Id="@p.Id">Title @p.Title </a></h4>
+        <div>@p.CreatedAt</div>
+        <div>Body: @p.Body</div>
+        <div>Likes: @p.Likes</div>
+        if (p.CommentList.Count != 0)
+        {
+            <h3>Comments</h3>
+            foreach (Comment c in p.CommentList)
+            {
+                <div>-- @c.Body</div>
+            }
+
+        }
+
+    }
+
+}

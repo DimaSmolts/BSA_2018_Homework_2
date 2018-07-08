@@ -1,0 +1,59 @@
+﻿@model PostInfo
+
+@{
+    ViewData["Title"] = "Query6";
+}
+
+<h2>Query6</h2>
+<h4>
+    Получить следующую структуру (передать Id поста в параметры)
+    --Пост
+    --Самый длинный коммент поста
+    --Самый залайканный коммент поста
+    --Количество комментов под постом где или 0 лайков или длина текста < 80
+</h4>
+
+@if (Model != null)
+{
+    if (Model.Post != null)
+    {
+        <div><a asp-controller="Query6" asp-action="Index">Back</a></div>
+        <table>
+            <tr>
+                <td>Post</td>
+                <td>
+                    <a asp-controller="Query6" asp-action="Index" asp-route-Id="@Model.Post.Id">
+                        @Model.Post.Title
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Longes Comment</td>
+                <td>@(Model.LongComment == null ? " " : Model.LongComment.Body)</td>
+            </tr>
+            <tr>
+                <td>Liked Comment</td>
+                <td>@(Model.LikedComment == null ? " " : Model.LikedComment.Body)</td>
+            </tr>
+            <tr>
+                <td>Comment Amount</td>
+                <td>@(Model.SpecialComment)</td>
+            </tr>
+        </table>
+    }
+    else
+    {
+        <div>no data</div>
+        <div><a asp-controller="Query6" asp-action="Index">Back</a></div>
+    }
+
+}
+else
+{
+    @using (Html.BeginForm("Index", "query6", FormMethod.Post))
+    {
+        <div>Enter id:</div>
+        <input type="number" name="id" />
+        <input type="submit" value="+">
+    }
+}

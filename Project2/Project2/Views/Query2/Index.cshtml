@@ -1,0 +1,41 @@
+﻿@model List<Comment>
+@{
+    ViewData["Title"] = "Query2";
+}
+
+<h2>Query2</h2>
+<h4>Получить список комментов под постами конкретного пользователя (по айди), где body коммента < 50 символов (список из комментов)</h4>
+
+
+@if (Model != null)
+{
+    if (Model.Count != 0)
+    {
+        <div><a asp-controller="query2" asp-action="index">Back</a></div>
+        <table>
+            <tr>
+                <td>Comments</td>
+            </tr>
+            @foreach (Comment c in Model)
+            {
+                <tr>
+                    <td>@c.Body</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div>no data</div>
+        <div><a asp-controller="Query2" asp-action="Index">Back</a></div>
+    }
+}
+else
+{
+    @using (Html.BeginForm("Index", "query2", FormMethod.Post))
+    {
+        <div>Enter id:</div>
+        <input type="number" name="id" />
+        <input type="submit" value="+">
+    }
+}

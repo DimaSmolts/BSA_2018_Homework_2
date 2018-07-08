@@ -44,7 +44,7 @@ namespace Project2
 
 
 			var postList = (from post in postList0
-							join comment in commentList on post.Id equals comment.UserId into comments
+							join comment in commentList on post.Id equals comment.PostId into comments
 							select new Models.Post
 							{
 								Id = post.Id,
@@ -73,10 +73,5 @@ namespace Project2
 					 }).ToList()
 				);
 		}
-
-		//static MyDB()
-		//{
-		//	SendRequest();
-		//}
 	}
 }
