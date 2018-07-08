@@ -21,7 +21,7 @@
             {
                 <tr>
                     <td>@t.Id</td>
-                    <td>@t.Name</td>
+                    <td><a asp-controller="todo" asp-action="index" asp-route-Id="@t.Id"> @t.Name </a></td>
                 </tr>
             }
         </table>

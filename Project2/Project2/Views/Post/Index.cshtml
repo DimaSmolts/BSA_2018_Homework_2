@@ -4,20 +4,74 @@
     ViewData["Title"] = "Post";
 }
 
-@if ( Model != null)
+@if (Model != null)
 {
-    <img src="@MyDB.Users.First(user => user.Id == Model.UserId).Avatar" />
-    <h4>Title @Model.Title</h4>
-    <div>@Model.CreatedAt</div>
-    <div>Body: @Model.Body</div>
-    <div>Likes: @Model.Likes</div>
-    if(Model.CommentList.Count != 0)
+    <div class="container">
+        <h1>Post (id:@Model.Id)</h1>
+    </div>
+    <hr />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <img src="@MyDB.Users.First(user => user.Id == Model.UserId).Avatar" />
+            </div>
+            <div class="col-md-5">
+                <h3>@Model.Title</h3>
+                <div>@Model.CreatedAt</div>
+                <div>
+                    <a asp-controller="user" asp-action="index" asp-route-Id="@Model.UserId">
+                       @MyDB.Users.First(user => user.Id == Model.UserId).Name
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-7 col-md-offset-1">
+                <div style="height:50px; font-size:30px; text-align: center;" class="thumbnail">
+                    @Model.Body
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1 col-md-offset-7">
+                ♥ @Model.Likes
+            </div>
+        </div>
+    </div>
+
+    if (Model.CommentList.Count != 0)
     {
-        <h3>Comments</h3>
-        foreach(Comment c in Model.CommentList)
-        {
-            <div>-- @c.Body</div>
-        }
+        <div class="container">
+            <div class="col-md-7 col-md-offset-1" style="text-align:center; font-size:20px;">
+                Comments
+            </div>
+        </div>
+        <br />
+        <div class="container">
+            @foreach (Comment c in Model.CommentList)
+            {
+                <div class="row">
+
+                    <div class="col-md-1 col-md-offset-2">
+                        <img src="@MyDB.Users.First(user => user.Id.Equals(c.UserId)).Avatar" style="width: 70px; height: 70px;"/>
+                    </div>
+                    <div class="col-md-5">
+                        <div>
+                            <a asp-controller="user" asp-action="index" asp-route-Id="@c.UserId">
+                                @MyDB.Users.First(user => user.Id.Equals(c.UserId)).Name
+                            </a>
+                        </div>
+                        <div>@c.Body</div>
+                        <div class="col-md-2 col-md-offset-9">
+                            ♥ @c.Likes
+                        </div>
+                    </div>
+                </div>
+                <br />
+            }
+        </div>
 
     }
 }

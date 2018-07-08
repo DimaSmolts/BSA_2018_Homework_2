@@ -5,44 +5,83 @@
 }
 
 @if (Model != null)
-{ 
-    <h1>User page</h1>
-    <div>@Model.Id</div>
-    <div>@Model.Name</div>
-    <div>@Model.CreatedAt</div>
-    <div>@Model.Address.Country</div>
-    <img src="@Model.Avatar" alt="user.Name" />
+{
+    <div class="container">
+        <h1>User page (id:@Model.Id)</h1>
+    </div>    
+    <hr/>
 
-    @if (Model.PostList.Count != 0)
-    {
-        <h3>Posts:</h3>
-        @foreach (Post p in Model.PostList)
-        {
-            <h4>---<a asp-controller="post" asp-action="index" asp-route-Id="@p.Id"> @p.Title </a></h4>
-            <div>----@p.CreatedAt</div>
-            <div>----@p.Body</div>
-            <div>----@p.Likes</div>
-        }
-    }
-    else
-    {
-        <h3>User has no posts</h3>
-    }
-    <br />
-    @if (Model.TodoList.Count != 0)
-    {
-        <h3>Todos:</h3>
-        @foreach (Todo t in Model.TodoList)
-        {
-            <h4>----<a asp-controller="todo" asp-action="index" asp-route-Id="@t.Id">@t.Name</a> </h4>
-            <div>----@t.CreatedAt</div>
-            <div>----@t.IsComplete</div>
-        }
-    }
-    else
-    {
-        <h3>User has no todos</h3>
-    }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <img src="@Model.Avatar" alt="user.Name" />
+            </div>
+            <div class="col-md-4">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td><strong>User Name</strong></td>
+                                <td>@Model.Name</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Registered</strong></td>
+                                <td>@Model.CreatedAt</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Country</strong></td>
+                                <td>@Model.Address.Country</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+                @if (Model.PostList.Count != 0)
+                {
+                    <h3>Posts:</h3>
+                    @foreach (Post p in Model.PostList)
+                    {
+                        <h4><a asp-controller="post" asp-action="index" asp-route-Id="@p.Id"> @p.Title </a></h4>
+                        <div class="row">
+                            <div class="col-md-8">@p.CreatedAt</div>
+                            <div class="col-md-3">♥ @p.Likes</div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <h3>User has no posts</h3>
+                }
+            </div>
+            <div class="col-md-3">
+                @if (Model.TodoList.Count != 0)
+                {
+                    <h3>Todos:</h3>
+                    @foreach (Todo t in Model.TodoList)
+                    {
+                        <h4><a asp-controller="todo" asp-action="index" asp-route-Id="@t.Id">@t.Name</a> </h4>
+                        <div class="row">
+                            <div class="col-md-8">@t.CreatedAt</div>
+                            <div class="col-md-3">@(t.IsComplete? "✔️" : "✖️")</div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <h3>User has no todos</h3>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
 }
 else
 {
