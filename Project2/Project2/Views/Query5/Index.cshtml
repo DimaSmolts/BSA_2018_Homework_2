@@ -1,0 +1,76 @@
+﻿@model UserInfo
+@{
+    ViewData["Title"] = "Query5";
+}
+
+<div class="container">
+    <h1>Query5</h1>
+    <h4>Получить структуру UserInfo</h4>
+</div>
+<hr />
+
+@if (Model != null)
+{
+    if (Model.User != null)
+    {
+        <div><a asp-controller="query5" asp-action="index">← Back</a></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Name</th>
+                            <td> <a asp-controller="user" asp-action="index" asp-route-Id="@Model.User.Id"> @Model.User.Name</a></td>
+                        </tr>
+                        <tr>
+                            <th>Last Post</th>
+                            <td>
+                                <a asp-controller="post" asp-action="index" asp-route-Id="@(Model.LastPost == null ? 0 : Model.LastPost.Id)">
+                                    @(Model.LastPost == null ? "no post" : Model.LastPost.Title)
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Last Post comms</th>
+                            <td>@(Model.LastPost == null ? "no comments" : Model.LastPost.CommentList.Count.ToString())</td>
+                        </tr>
+                        <tr>
+                            <th>Not completed</th>
+                            <td>@Model.NotCompleteddTodo</td>
+                        </tr>
+                        <tr>
+                            <th>Most popular (comm.)</th>
+                            <td>
+                                <a asp-controller="post" asp-action="index" asp-route-Id="@(Model.MostCommentsPost == null ? 0 : Model.MostCommentsPost.Id)">
+                                    @(Model.MostCommentsPost == null ? "no post" : Model.MostCommentsPost.Title)
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Most popular (likes)</th>
+                            <td>
+                                <a asp-controller="post" asp-action="index" asp-route-Id="@(Model.MostLikesPost == null ? 0 : Model.MostLikesPost.Id)">
+                                    @(Model.MostLikesPost == null ? "no post" : Model.MostLikesPost.Title)
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div><a asp-controller="Query5" asp-action="Index">← Back</a></div>
+        <h1 style="text-align:center">no data</h1>
+    }
+}
+else
+{
+    @using (Html.BeginForm("Index", "query5", FormMethod.Post))
+    {
+        <div>Enter id:</div>
+        <input type="number" name="id" />
+        <input type="submit" value="+">
+    }
+}

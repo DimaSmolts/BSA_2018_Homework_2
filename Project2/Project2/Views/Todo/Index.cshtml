@@ -1,0 +1,36 @@
+﻿@model Todo
+
+@{
+    ViewData["Title"] = "Todo";
+}
+
+@if (Model != null)
+{
+    <div class="container">
+        <h1>Todo (id:@Model.Id)</h1>
+    </div>
+    <hr/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <img src="@MyDB.Users.First(user => user.Id == Model.UserId).Avatar" />
+                <div>
+                    <a asp-controller="user" asp-action="index" asp-route-Id="@Model.UserId"> 
+                        @MyDB.Users.First(user => user.Id == Model.UserId).Name
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="small">@Model.CreatedAt</div>
+                <h3> @Model.Name</h3>
+                <div>Completed: @(Model.IsComplete ? "✔️" : "✖️")</div>
+            </div>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <h1>Error</h1>
+}
